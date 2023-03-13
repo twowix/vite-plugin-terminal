@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-terminal",
+  "name": "@twowix/vite-plugin-terminal",
   "version": "1.1.0",
   "description": "Log in the node terminal from the browser",
   "keywords": [
@@ -88,5 +88,8 @@
   },
   "engines": {
     "node": ">=14"
+  },
+  "directories": {
+    "test": "test"
   }
 }
