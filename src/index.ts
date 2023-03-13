@@ -226,7 +226,12 @@ function createTerminal() {
 
   function stringifyObjs(objs: any[]) {
     const obj = objs.length > 1 ? objs.map(stringify).join(' ') : objs[0]
-    return typeof obj === 'object' ? `${prettyPrint(obj)}` : typeof obj === undefined ? 'undefined' : obj.toString()
+    try {
+      return typeof obj === 'object' ? `${prettyPrint(obj)}` : obj.toString()
+    }
+    catch (e) {
+      return 'undefined'
+    }
   }
 
   function send(type: string, message?: string) {
