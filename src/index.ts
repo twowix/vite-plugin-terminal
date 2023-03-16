@@ -136,8 +136,13 @@ function pluginTerminal(options: Options = {}) {
       server.middlewares.use('/__terminal', (req, res) => {
         const { pathname, search } = parseURL(req.url)
         const searchParams = new URLSearchParams(search.slice(1))
-
-        const message = decodeURI(searchParams.get('m') ?? '').split('\n').join('\n  ')
+        let message = ''
+        try {
+          message = decodeURI(searchParams.get('m') ?? '').split('\n').join('\n  ')
+        }
+        catch (e) {
+          message = ''
+        }
         const time = parseInt(searchParams.get('t') ?? '0')
         const count = parseInt(searchParams.get('c') ?? '0')
         const groupLevel = parseInt(searchParams.get('g') ?? '0')
@@ -153,7 +158,6 @@ function pluginTerminal(options: Options = {}) {
                   if (process.stdout.isTTY && !process.env.CI) {
                     const repeatCount = process.stdout.rows - 2
                     const blank = repeatCount > 0 ? '\n'.repeat(repeatCount) : ''
-                    console.log(blank)
                     readline.cursorTo(process.stdout, 0, 0)
                     readline.clearScreenDown(process.stdout)
                   }
